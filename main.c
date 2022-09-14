@@ -78,13 +78,74 @@ int main()
 //fscanf() fprintf(); 是针对所有输入流或者所有输出流的格式化输入输出语句
 //sscanf()  是从字符串中读取字符串的数据
 //sprintf(); 吧格式化的数据 存储到字符串中
+struct S {
+    char name[20];
+    int age;
+    double score;
+};
 
+int main2() {
+//    struct S  s = {"张三",20,55.7};
+    struct S tmp = {0};
+    //二进制输入
+    FILE *pf = fopen("test.txt", "wb"); //二进制写
+    if (pf == NULL) {
+        return 0;
+    }
+    //二级制的形式写文件
+//    fwrite(&s,sizeof(struct S),1,pf); //写入一个struct s结构到pf
 
-int main()
-{
+    //二进制读取文件
+    fread(&tmp, sizeof(struct S), 1, pf);
+
+    printf("%s\n", tmp.name);
+    printf("%d\n", tmp.age);
+    printf("%lf\n", tmp.score);
+    fclose(pf);
+    pf = NULL;
 
 
 }
+
+int main3() {
+    FILE *pf = fopen("Test.txt", "r");
+    //定位指针 读取文件
+    if (pf == NULL) {
+        return 0;
+    }
+    //文件的随机读写
+//    fseek(pf,2,SEEK_END);
+    int pos = ftell(pf); //返回文件指针相对于起始位置的偏移量
+
+    //读取文件
+    int ch = fgetc(pf);
+    printf("%c\n", ch);
+
+    fclose(pf);
+    pf = NULL;
+}
+
+
+int main() {
+
+//    feof(); end of file
+
+//    perror();
+    FILE *pf = fopen("TTT.txt", "r");;
+    if(NULL == pf)
+    {
+        perror("哈哈");  //哈哈: No such file or directory
+        //perror(); 打印自定以错误信息+错误代码
+        return 0;
+    }
+    //读取文件
+
+    //关闭文件
+    fclose(pf);
+
+}
+
+
 
 
 
